@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsCart2 } from "react-icons/bs";
 
 const ProductCatalog = () => {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
   const categories = [
     "Свадьба",
     "Девичник",
@@ -16,23 +19,21 @@ const ProductCatalog = () => {
     "Без печати",
   ];
 
-  const products = [
+  const productData = [
     {
-      id1: 1,
+      id: 1,
       title: "Сердце",
       desc: "24 штуки в коробке в виде сердца. Ассорти из 6 вкусов",
       price: "2800 руб",
       img: "heart-box.png",
     },
-
     {
-      id: 1,
+      id: 2,
       title: "Красота спасёт мир",
       desc: "Набор 16 шт. Вкусы: клубника - базилик, кокос, голубой сыр, пармезан",
       price: "750 руб",
       img: "beauty-box.png",
     },
-
     {
       id: 3,
       title: "Круглый набор",
@@ -40,7 +41,6 @@ const ProductCatalog = () => {
       price: "3900 руб",
       img: "round-box.png",
     },
-
     {
       id: 4,
       title: "Набор на 9",
@@ -48,23 +48,88 @@ const ProductCatalog = () => {
       price: "950 руб",
       img: "nabor9.png",
     },
-
     {
       id: 5,
       title: "Набор на 16",
-      desc: "Набор 16 шт. Вкусы: соленая карамель, голубой сыр, пармезан, шоколад ",
+      desc: "Набор 16 шт. Вкусы: соленая карамель, голубой сыр, пармезан, шоколад",
       price: "1500 руб",
       img: "nabor16.png",
     },
-
     {
       id: 6,
-      title: "Сердце ",
-      desc: "24 штуки в коробке в виде сердца.Ассорти из 6 вкусов ",
+      title: "Сердце",
+      desc: "24 штуки в коробке в виде сердца. Ассорти из 6 вкусов",
       price: "2500 руб",
       img: "heart-nabor.png",
     },
   ];
+
+  useEffect(() => {
+    // Simulate API call
+    const timer = setTimeout(() => {
+      setProducts(productData);
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Loading Skeleton
+  if (loading) {
+    return (
+      <div>
+        {/* Breadcrumb Skeleton */}
+        <div className="flex items-center justify-center gap-2 text-sm mb-4">
+          <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+          <span>&gt;</span>
+          <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+          <span>&gt;</span>
+          <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+
+        {/* Title Skeleton */}
+        <div className="h-8 w-48 mx-auto bg-gray-200 rounded animate-pulse"></div>
+
+        {/* Categories Skeleton */}
+        <div className="flex items-center gap-2 mt-6 mb-10 overflow-x-auto pb-2">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => (
+            <div
+              key={i}
+              className="h-10 w-20 bg-gray-200 rounded-full animate-pulse flex-shrink-0"
+            ></div>
+          ))}
+        </div>
+
+        {/* Products Grid Skeleton */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={i}
+              className="bg-white rounded-[5px] overflow-hidden border border-gray-200 shadow-sm flex flex-col"
+            >
+              <div className="w-full aspect-square bg-gray-200 animate-pulse"></div>
+              <div className="p-3 md:p-6 flex-grow flex flex-col">
+                <div className="h-4 md:h-6 w-3/4 bg-gray-200 rounded animate-pulse mb-1 md:mb-2"></div>
+                <div className="h-3 md:h-4 w-full bg-gray-200 rounded animate-pulse mb-1"></div>
+                <div className="h-3 md:h-4 w-2/3 bg-gray-200 rounded animate-pulse"></div>
+              </div>
+              <div className="flex items-center border-t border-gray-200 h-11 md:h-14 w-full mt-auto">
+                <div className="flex-1 h-full flex items-center justify-center px-1">
+                  <div className="h-4 md:h-6 w-16 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+                <div className="h-full border-l border-gray-200"></div>
+                <div className="w-11 sm:w-auto sm:flex-1 h-full flex items-center justify-center px-2">
+                  <div className="h-4 md:h-5 w-5 md:w-6 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="hidden sm:inline-block ml-1.5 h-3 md:h-4 w-14 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="flex items-center justify-center gap-2 text-sm text-gray-400 mb-4">
@@ -83,7 +148,6 @@ const ProductCatalog = () => {
 
       <h2 className="text-[30px] font-bold text-center">Готовые наборы</h2>
 
-      {/* Categories - horizontal scroll */}
       <div className="flex items-center gap-2 mt-6 mb-10 overflow-x-auto pb-2 scrollbar-hide">
         {categories.map((category, index) => (
           <button
