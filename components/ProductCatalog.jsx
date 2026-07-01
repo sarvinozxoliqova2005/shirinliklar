@@ -65,7 +65,6 @@ const ProductCatalog = () => {
   ];
 
   useEffect(() => {
-    // Simulate API call
     const timer = setTimeout(() => {
       setProducts(productData);
       setLoading(false);
@@ -74,11 +73,9 @@ const ProductCatalog = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Loading Skeleton
   if (loading) {
     return (
       <div>
-        {/* Breadcrumb Skeleton */}
         <div className="flex items-center justify-center gap-2 text-sm mb-4">
           <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
           <span>&gt;</span>
@@ -87,10 +84,8 @@ const ProductCatalog = () => {
           <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
         </div>
 
-        {/* Title Skeleton */}
         <div className="h-8 w-48 mx-auto bg-gray-200 rounded animate-pulse"></div>
 
-        {/* Categories Skeleton */}
         <div className="flex items-center gap-2 mt-6 mb-10 overflow-x-auto pb-2">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => (
             <div
@@ -100,7 +95,6 @@ const ProductCatalog = () => {
           ))}
         </div>
 
-        {/* Products Grid Skeleton */}
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div
@@ -148,11 +142,11 @@ const ProductCatalog = () => {
 
       <h2 className="text-[30px] font-bold text-center">Готовые наборы</h2>
 
-      <div className="flex items-center gap-2 mt-6 mb-10 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex items-center gap-2 mt-6 mb-10 overflow-x-auto pb-2 scrollbar-hide ">
         {categories.map((category, index) => (
           <button
             key={index}
-            className="px-4 py-2 sm:px-5 sm:py-2.5 bg-[#F7EBE5] text-gray-700 text-xs sm:text-sm rounded-full transition duration-200 font-medium hover:bg-[#ecd9d0] hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0"
+            className="px-4 py-2 sm:px-5 sm:py-2.5 cursor-pointer bg-[#F7EBE5] text-gray-700 text-xs sm:text-sm rounded-full transition duration-200 font-medium hover:bg-[#ecd9d0] hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0"
           >
             {category}
           </button>
@@ -201,8 +195,10 @@ const ProductCatalog = () => {
               </button>
             </div>
           </div>
+          
         ))}
       </div>
+           <button className="mx-auto block max-w-[290px] cursor-pointer w-full h-[50px] border-[1px] rounded-[5px] mt-10 border-[#4E9DD3]">Показать ещё</button>
     </div>
   );
 };
